@@ -1,0 +1,13 @@
+aflags = -f win64
+cflags = -ffreestanding
+lflags = -nostdlib
+oflags = -O binary
+
+rule cc
+  command = x86_64-w64-mingw32-gcc -c $cflags $in -o $out
+
+rule ld
+  command = cmd /c "ld $in $lflags -o $out & objcopy $oflags $out $out"
+
+build obj/knentry.o: cc src/knentry.c
+build bin/knentry.bin: ld obj/knentry.o
