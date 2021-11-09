@@ -11,14 +11,6 @@
       "label": "clean",
       "type": "process",
       "command": "boclean.bat"
-    },
-    {
-      "label": "genrawb",
-      "type": "process",
-      "command": "python",
-      "args": [
-        "genrawb.py"
-      ]
     }
   ]
 }

@@ -7,7 +7,11 @@ rule cc
   command = x86_64-w64-mingw32-gcc -c $cflags $in -o $out
 
 rule ld
-  command = cmd /c "ld $in $lflags -o $out & objcopy $oflags $out $out"
+  command = ld $in $lflags -o $out
+
+rule oc
+  command = objcopy $oflags $in $out
 
 build obj/knentry.o: cc src/knentry.c
-build bin/knentry.bin: ld obj/knentry.o
+build bin/knentry.out: ld obj/knentry.o
+build bin/knentry.bin: oc bin/knentry.out
