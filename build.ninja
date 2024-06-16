@@ -2,12 +2,14 @@ aflags = -f win64
 cflags = -ffreestanding
 lflags = -nostdlib
 oflags = -O binary
+ldselect = python ./build/ldselect.py
+asselect = python ./build/asselect.py
 
 rule cc
   command = x86_64-w64-mingw32-gcc -c $cflags $in -o $out
 
 rule ld
-  command = ld $in $lflags -o $out
+  command = $ldselect $in $lflags -o $out
 
 rule oc
   command = objcopy $oflags $in $out
