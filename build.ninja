@@ -1,9 +1,10 @@
 aflags = -f win64
 cflags = -ffreestanding
 lflags = -nostdlib
-oflags = -O binary
+oflags = -O binary -j .text
 ldselect = python ./build/ldselect.py
 asselect = python ./build/asselect.py
+hdinject = python ./build/hdinject.py
 
 rule cc
   command = x86_64-w64-mingw32-gcc -c $cflags $in -o $out
@@ -14,6 +15,10 @@ rule ld
 rule oc
   command = objcopy $oflags $in $out
 
+rule hi
+  command = $hdinject $in $out
+
 build obj/knentry.o: cc src/knentry.c
-build bin/knentry.out: ld obj/knentry.o
-build bin/knentry.bin: oc bin/knentry.out
+build tmp/knentry.tmp: ld obj/knentry.o
+build tmp/knentry.bin: oc tmp/knentry.tmp
+build bin/knentry.bin: hi tmp/knentry.bin

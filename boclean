@@ -1,2 +1,2 @@
 #!/bin/bash
-rm -rf obj/ bin/ .ninja_*
+rm -rf obj/ bin/ tmp/ .ninja_*
